@@ -1,4 +1,4 @@
-hello world.hello world.hello world.hello world.hello world.hello world.hello world.hello world.hello world.hello world.hello world.salam.
-hello world.hello world.hello world.hello world.hello world.hello world.hello world.
-hello world.hello world.hello world.hello world.
-hello world.hello world.hello world.
+Bonjour, ceci est un test.
+Ligne 2 : Une autre ligne.
+Ligne 3 : Encore une.
+Fin du fichier.

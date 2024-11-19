@@ -69,24 +69,24 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (total_str);
 }
 
-char    *extract_line(char *buff)
+char    *extract_line(char *remainder)
 {
-    int i;
-    char *line;
+    int     i;
+    char    *line;
 
-	i = 0;
-    while (buff[i] && buff[i] != '\n')
+    i = 0;
+    while (remainder[i] && remainder[i] != '\n')
         i++;
-    line = malloc((i + 2) * sizeof(char));
+    line = malloc((i + 2) * sizeof(char)); // +2 pour '\n' + '\0'
     if (!line)
         return (NULL);
     i = 0;
-    while (buff[i] && buff[i] != '\n')
+    while (remainder[i] && remainder[i] != '\n')
     {
-        line[i] = buff[i];
+        line[i] = remainder[i];
         i++;
     }
-    if (buff[i] == '\n')
+    if (remainder[i] == '\n')
         line[i++] = '\n';
     line[i] = '\0';
     return (line);
@@ -96,25 +96,23 @@ char    *save_remainder(char *remainder)
 {
     int     i;
     int     j;
-    char    *new_remainder = NULL;
+    char    *new_remainder;
 
     i = 0;
-    j = 0;
     while (remainder[i] && remainder[i] != '\n')
         i++;
-    if (!remainder)
+    if (!remainder[i])
     {
         free(remainder);
-        remainder = NULL;
+        return (NULL);
     }
-    new_remainder = malloc(ft_strlen(remainder) - i + 1);
-	if (!new_remainder)
+    new_remainder = malloc(ft_strlen(remainder) - i);
+    if (!new_remainder)
         return (NULL);
     i++;
+    j = 0;
     while (remainder[i])
-    {
         new_remainder[j++] = remainder[i++];
-    }
     new_remainder[j] = '\0';
     free(remainder);
     return (new_remainder);
