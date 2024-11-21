@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: idahhan <idahhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 13:56:58 by idahhan           #+#    #+#             */
-/*   Updated: 2024/11/21 15:15:38 by idahhan          ###   ########.fr       */
+/*   Created: 2024/11/21 12:07:50 by idahhan           #+#    #+#             */
+/*   Updated: 2024/11/21 15:14:14 by idahhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*clear_remainder(char **remainder)
 {
-	free(*remainder);
-	*remainder = NULL;
+	if (*remainder)
+	{
+		free(*remainder);
+		*remainder = NULL;
+	}
 	return (NULL);
 }
 
@@ -44,15 +47,15 @@ int	read_file_update_remainder(int fd, char **remainder)
 char	*get_next_line(int fd)
 {
 	int			bytes_read;
-	static char	*remainder;
+	static char	*remainder[MAX_FD];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > 1000000)
+	if (fd < 0 || fd > MAX_FD || BUFFER_SIZE <= 0 || BUFFER_SIZE > 1000000)
 		return (NULL);
-	bytes_read = read_file_update_remainder(fd, &remainder);
-	if (bytes_read < 0 || !remainder || *remainder == '\0')
-		return (clear_remainder(&remainder));
-	line = extract_line(remainder);
-	remainder = save_remainder(remainder);
+	bytes_read = read_file_update_remainder(fd, &remainder[fd]);
+	if (bytes_read < 0 || !remainder[fd] || *remainder[fd] == '\0')
+		return (clear_remainder(&remainder[fd]));
+	line = extract_line(remainder[fd]);
+	remainder[fd] = save_remainder(remainder[fd]);
 	return (line);
 }

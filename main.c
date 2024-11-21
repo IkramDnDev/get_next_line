@@ -7,7 +7,7 @@ void leaks()
 
 int main()
 {
-    int fd = open("file.txt", O_RDONLY);
+    int fd = open("file2.txt", O_RDONLY);
     char *line = get_next_line(fd);
     while (line != NULL)
     {
@@ -18,4 +18,27 @@ int main()
     atexit(leaks);
     close(fd);
     return (0);
+}
+
+int	main(void)
+{
+	int		fd1, fd2;
+	char	*line;
+
+	fd1 = open("file1.txt", O_RDONLY);
+	fd2 = open("file2.txt", O_RDONLY);
+    // printf("%d\n", fd1);
+    // printf("%d", fd2);
+	while ((line = get_next_line(fd1)))
+	{
+		printf("File 1: %s\n", line);
+		free(line);
+		line = get_next_line(fd2);
+		printf("File 2: %s\n", line);
+		free(line);
+	}
+	close(fd1);
+	close(fd2);
+    atexit(leaks);
+	return (0);
 }
