@@ -6,7 +6,7 @@
 /*   By: idahhan <idahhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:57:06 by idahhan           #+#    #+#             */
-/*   Updated: 2024/11/21 12:48:00 by idahhan          ###   ########.fr       */
+/*   Updated: 2024/11/22 16:11:58 by idahhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-# define BUFFER_SIZE 5
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
 
 char	*get_next_line(int fd);
 char	*ft_strdup(const char *src);

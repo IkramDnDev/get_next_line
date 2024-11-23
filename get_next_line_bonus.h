@@ -6,7 +6,7 @@
 /*   By: idahhan <idahhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:49:48 by idahhan           #+#    #+#             */
-/*   Updated: 2024/11/21 15:18:39 by idahhan          ###   ########.fr       */
+/*   Updated: 2024/11/22 16:10:17 by idahhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-# define BUFFER_SIZE 5
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
 
 # define MAX_FD 10240    
 

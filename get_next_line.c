@@ -6,11 +6,63 @@
 /*   By: idahhan <idahhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:56:58 by idahhan           #+#    #+#             */
-/*   Updated: 2024/11/21 15:15:38 by idahhan          ###   ########.fr       */
+/*   Updated: 2024/11/22 16:12:47 by idahhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*extract_line(char *remainder)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	while (remainder[i] && remainder[i] != '\n')
+		i++;
+	line = malloc((i + 2) * sizeof(char));
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (remainder[i] && remainder[i] != '\n')
+	{
+		line[i] = remainder[i];
+		i++;
+	}
+	if (remainder[i] == '\n')
+		line[i++] = '\n';
+	line[i] = '\0';
+	return (line);
+}
+
+char	*save_remainder(char *remainder)
+{
+	int		i;
+	int		j;
+	char	*new_remainder;
+
+	i = 0;
+	while (remainder[i] && remainder[i] != '\n')
+		i++;
+	if (!remainder[i])
+	{
+		free(remainder);
+		return (NULL);
+	}
+	new_remainder = malloc(ft_strlen(remainder) - i);
+	if (!new_remainder)
+	{
+		free(remainder);
+		return (NULL);
+	}
+	i++;
+	j = 0;
+	while (remainder[i])
+		new_remainder[j++] = remainder[i++];
+	new_remainder[j] = '\0';
+	free(remainder);
+	return (new_remainder);
+}
 
 char	*clear_remainder(char **remainder)
 {
@@ -47,7 +99,7 @@ char	*get_next_line(int fd)
 	static char	*remainder;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > 1000000)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	bytes_read = read_file_update_remainder(fd, &remainder);
 	if (bytes_read < 0 || !remainder || *remainder == '\0')
