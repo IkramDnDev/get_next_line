@@ -6,7 +6,7 @@
 /*   By: idahhan <idahhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 12:07:50 by idahhan           #+#    #+#             */
-/*   Updated: 2024/11/22 16:13:39 by idahhan          ###   ########.fr       */
+/*   Updated: 2024/11/24 17:51:28 by idahhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,12 @@ char	*clear_remainder(char **remainder)
 int	read_file_update_remainder(int fd, char **remainder)
 {
 	int		bytes_read;
-	char	buffer[BUFFER_SIZE + 1];
+	char	*buffer;
 	char	*temp;
 
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (0);
 	bytes_read = read(fd, buffer, BUFFER_SIZE);
 	while (bytes_read > 0)
 	{
@@ -93,6 +96,7 @@ int	read_file_update_remainder(int fd, char **remainder)
 			break ;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 	}
+	free(buffer);
 	return (bytes_read);
 }
 
