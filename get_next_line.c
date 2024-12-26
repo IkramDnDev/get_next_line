@@ -6,7 +6,7 @@
 /*   By: idahhan <idahhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:56:58 by idahhan           #+#    #+#             */
-/*   Updated: 2024/11/24 14:32:33 by idahhan          ###   ########.fr       */
+/*   Updated: 2024/12/26 16:20:28 by idahhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*get_next_line(int fd)
 	static char	*remainder;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= 2147483647)
 		return (NULL);
 	bytes_read = read_file_update_remainder(fd, &remainder);
 	if (bytes_read < 0 || !remainder || *remainder == '\0')
